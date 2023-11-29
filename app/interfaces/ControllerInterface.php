@@ -1,5 +1,6 @@
 <?php
 
-interface ControllerInterface {
+interface ControllerInterface
+{
     public function run();
 }
