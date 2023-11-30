@@ -1,16 +1,19 @@
 <?php
-include_once 'app/controllers/BaseController.php';
+
+namespace App;
+
+use App\Controllers\BaseController;
 
 class Router extends BaseController
 {
-    private $routes = [];
+    private array $routes = [];
 
-    public function addRoute($url, $controller = null)
+    public function addRoute($url, $controller = null): void
     {
         $this->routes[$url] = $controller;
     }
 
-    public function handleRequest($url)
+    public function handleRequest($url): bool
     {
         $url = substr($url, strpos($url, '/', 1));
         if (array_key_exists($url, $this->routes)) {
@@ -23,20 +26,20 @@ class Router extends BaseController
         } else {
             $this->notFound();
         }
+        return false;
     }
 
-    private function callController($controller)
+    private function callController($controller): void
     {
-        require_once 'app/controllers/' . $controller . '.php';
-        $controllerInstance = new $controller();
-        $controllerInstance->run();
+        require_once 'app/Controllers/' . $controller . '.php';
+        $controller = 'App\\Controllers\\' . $controller;
+        $controller = new $controller();
+        $controller->render();
     }
 
-    private function notFound()
+    private function notFound(): void
     {
         header("HTTP/1.0 404 Not Found");
         echo '404 - Not Found';
     }
 }
-
-?>

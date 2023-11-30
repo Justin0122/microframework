@@ -1,8 +1,10 @@
 <?php
 
+namespace App\Controllers;
+
 class BaseController
 {
-    protected function view($viewName)
+    protected function view($viewName): bool
     {
         $viewPath = __DIR__ . '/../../views/' . $viewName . '.php';
 
