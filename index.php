@@ -5,6 +5,7 @@ ini_set('display_errors', 1);
 require_once 'autoloader.php';
 
 use App\Router;
+
 $router = new Router();
 
 $router->addRoute('/', 'HomeController');
